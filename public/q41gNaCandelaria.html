@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q4 1st Graded - Movie Rating</title>
+    <!-- Link to the separate CSS file -->
+    <link rel="stylesheet" href="../public/stylesheets/q41gNaCandelaria.css">
+</head>
+<body>
+
+    <h1>Movie Rating System</h1>
+
+    <form id="movieForm">
+        <fieldset>
+            <legend>Movie Details</legend>
+            
+            <label for="movieTitle">Movie Title</label>
+            <input type="text" id="movieTitle" placeholder="Enter movie name" required>
+
+            <label for="movieGenre">Genre</label>
+            <select id="movieGenre" required>
+                <option value="" disabled selected>Select a genre</option>
+                <option value="Action">Action</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Drama">Drama</option>
+                <option value="Horror">Horror</option>
+                <option value="Sci-Fi">Sci-Fi</option>
+                <option value="Romance">Romance</option>
+                <option value="Animation">Animation</option>
+            </select>
+        </fieldset>
+
+        <fieldset>
+            <legend>Rate This Movie</legend>
+            <label>Click stars to rate</label>
+            <div class="star-rating-container">
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 stars">★</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 stars">★</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 stars">★</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 stars">★</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">★</label>
+            </div>
+        </fieldset>
+
+        <div class="button-group">
+            <button type="submit" class="toggle-btn submit-btn">Add Movie</button>
+        </div>
+    </form>
+
+    <div class="movie-list-section">
+        <h2>Movie List</h2>
+        <div id="movieListContainer">
+            <p style="text-align:center; color:#f1c4ac;">No movies rated yet.</p>
+        </div>
+    </div>
+
+    <script>
+        const movieForm = document.getElementById('movieForm');
+        const movieListContainer = document.getElementById('movieListContainer');
+        
+        const STORAGE_KEY = 'movie_ratings_data';
+
+        
+        function getMoviesFromStorage() {
+            const storedData = localStorage.getItem(STORAGE_KEY);
+            return storedData ? JSON.parse(storedData) : [];
+        }
+
+    
+        function saveMovieToStorage(movieObj) {
+            const movies = getMoviesFromStorage();
+            movies.push(movieObj);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(movies));
+        }
+
+        
+        function renderMovieList() {
+            const movies = getMoviesFromStorage();
+            movieListContainer.innerHTML = ''; 
+
+            if (movies.length === 0) {
+                movieListContainer.innerHTML = '<p style="text-align:center; color:#f1c4ac;">No movies rated yet.</p>';
+                return;
+            }
+
+            movies.forEach(movie => {
+                const movieItem = document.createElement('div');
+                movieItem.classList.add('movie-item');
+
+                let starsHTML = '';
+                for(let i = 0; i < movie.rating; i++) {
+                    starsHTML += '★';
+                }
+
+                movieItem.innerHTML = `
+                    <div class="movie-info">
+                        <h3>${movie.title}</h3>
+                        <span>${movie.genre}</span>
+                    </div>
+                    <div class="display-stars" title="Rating: ${movie.rating}/5">
+                        ${starsHTML}
+                    </div>
+                `;
+
+                movieListContainer.appendChild(movieItem);
+            });
+        }
+
+        movieForm.addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const title = document.getElementById('movieTitle').value;
+            const genre = document.getElementById('movieGenre').value;
+            
+            const ratingInput = document.querySelector('input[name="rating"]:checked');
+            
+            if (!ratingInput) {
+                alert("Please select a star rating!");
+                return;
+            }
+
+            const rating = parseInt(ratingInput.value);
+
+            const newMovie = {
+                title: title,
+                genre: genre,
+                rating: rating
+            };
+
+            saveMovieToStorage(newMovie);
+            renderMovieList();
+            movieForm.reset();
+        });
+
+        renderMovieList();
+    </script>
+</body>
+</html>

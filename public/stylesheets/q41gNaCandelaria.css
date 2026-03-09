@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Baloo 2', cursive;
+    background: linear-gradient(135deg, #2c1b1b, #1a0f0f);
+    color: #f8f0e9;
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #e63946;
+    text-shadow: 0 0 8px rgba(230, 57, 70, 0.3);
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+h2 {
+    color: #ff6b6b;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #5a2a2a;
+    padding-bottom: 10px;
+}
+
+form {
+    max-width: 650px;
+    margin: 0 auto;
+    background: #2d1919;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid #5a2a2a;
+}
+
+fieldset {
+    margin-bottom: 22px;
+    padding: 18px;
+    border: 1px solid #7a3b3b;
+    border-radius: 10px;
+    background: rgba(45, 25, 25, 0.6);
+}
+
+legend {
+    font-weight: 600;
+    color: #ff6b6b;
+    padding: 0 8px;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: 600;
+    color: #f1c4ac;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #5d3a3a;
+    border-radius: 6px;
+    background: #3a2525;
+    color: #fffaf5;
+    font-family: inherit;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #d95f33;
+    box-shadow: 0 0 0 3px rgba(217, 95, 51, 0.4);
+}
+
+/* --- Star Rating Custom Styles (Added to match requirements) --- */
+.star-rating-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.star-rating-container input {
+    display: none;
+}
+
+.star-rating-container label {
+    cursor: pointer;
+    font-size: 35px;
+    color: #5d3a3a; /* Dimmed star color */
+    margin: 0;
+    transition: color 0.2s;
+}
+
+/* Turn stars yellow when checked or hovered */
+.star-rating-container input:checked ~ label,
+.star-rating-container label:hover,
+.star-rating-container label:hover ~ label {
+    color: #ffd700; /* Yellow */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+/* --- Button Styles (Using your provided classes) --- */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.toggle-btn {
+    padding: 14px 20px;
+    background: #3a2525;
+    border: 2px solid #5d3a3a;
+    border-radius: 8px;
+    color: #f1c4ac;
+    font-weight: 600;
+    font-family: 'Baloo 2', cursive;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    min-width: 140px;
+    text-transform: none;
+}
+
+.toggle-btn:hover {
+    background: #4a2e2e;
+    border-color: #7a3b3b;
+    transform: translateY(-1px);
+}
+
+.toggle-btn.submit-btn {
+    background: linear-gradient(to right, #3a2525, #4a2e2e);
+    border-color: #5d3a3a;
+}
+
+.toggle-btn.submit-btn:hover {
+    background: linear-gradient(to right, #4a2e2e, #5a3737);
+    border-color: #e63946;
+}
+
+.toggle-btn.submit-btn:active {
+    background: #c1121f;
+    color: white;
+    border-color: #ff6b6b;
+}
+
+/* --- Movie List Display Styles (Added for Read Operation) --- */
+.movie-list-section {
+    max-width: 650px;
+    margin: 40px auto;
+    background: #2d1919;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid #5a2a2a;
+}
+
+.movie-item {
+    background: #3a2525;
+    border: 1px solid #5d3a3a;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.movie-item:hover {
+    transform: translateX(5px);
+    border-color: #e63946;
+}
+
+.movie-info h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+    color: #fffaf5;
+}
+
+.movie-info span {
+    font-size: 0.9rem;
+    color: #ff6b6b;
+    background: rgba(230, 57, 70, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #5a2a2a;
+}
+
+.display-stars {
+    color: #ffd700; /* Yellow stars for list */
+    font-size: 24px;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+
+/* Responsive Adjustments from your provided CSS */
+@media (max-width: 768px) {
+    body { padding: 15px; }
+    h1 { font-size: 1.6rem; margin-bottom: 25px; }
+    form { padding: 20px; }
+    fieldset { padding: 15px; margin-bottom: 20px; }
+    legend { font-size: 1rem; }
+    label { margin: 12px 0 5px; font-size: 0.95rem; }
+    input, select, textarea { padding: 9px; font-size: 0.95rem; }
+}
+
+@media (max-width: 650px) {
+    .button-group { flex-direction: column; justify-content: center; }
+    .toggle-btn { width: 100%; margin-bottom: 10px; }
+    .toggle-btn:last-child { margin-bottom: 0; }
+}
