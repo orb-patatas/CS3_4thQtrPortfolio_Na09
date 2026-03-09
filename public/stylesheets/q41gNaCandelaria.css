@@ -83,7 +83,6 @@ input:focus, select:focus, textarea:focus {
     box-shadow: 0 0 0 3px rgba(217, 95, 51, 0.4);
 }
 
-/* --- Star Rating Custom Styles (Added to match requirements) --- */
 .star-rating-container {
     display: flex;
     flex-direction: row-reverse;
@@ -99,20 +98,18 @@ input:focus, select:focus, textarea:focus {
 .star-rating-container label {
     cursor: pointer;
     font-size: 35px;
-    color: #5d3a3a; /* Dimmed star color */
+    color: #5d3a3a; 
     margin: 0;
     transition: color 0.2s;
 }
 
-/* Turn stars yellow when checked or hovered */
 .star-rating-container input:checked ~ label,
 .star-rating-container label:hover,
 .star-rating-container label:hover ~ label {
-    color: #ffd700; /* Yellow */
+    color: #ffd700; 
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 
-/* --- Button Styles (Using your provided classes) --- */
 .button-group {
     display: flex;
     gap: 12px;
@@ -158,7 +155,6 @@ input:focus, select:focus, textarea:focus {
     border-color: #ff6b6b;
 }
 
-/* --- Movie List Display Styles (Added for Read Operation) --- */
 .movie-list-section {
     max-width: 650px;
     margin: 40px auto;
@@ -202,12 +198,11 @@ input:focus, select:focus, textarea:focus {
 }
 
 .display-stars {
-    color: #ffd700; /* Yellow stars for list */
+    color: #ffd700; 
     font-size: 24px;
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
 }
 
-/* Responsive Adjustments from your provided CSS */
 @media (max-width: 768px) {
     body { padding: 15px; }
     h1 { font-size: 1.6rem; margin-bottom: 25px; }
