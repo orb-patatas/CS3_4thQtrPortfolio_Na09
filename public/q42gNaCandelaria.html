@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Q4 1st Graded - Movie Rating</title>
-    <link rel="stylesheet" href="../public/stylesheets/q41gNaCandelaria.css">
+    <title>Q4 2nd Graded - Movie Rating with UD</title>
+    <link rel="stylesheet" href="../public/stylesheets/q42gNaCandelaria.css">
 </head>
 <body>
 
@@ -43,7 +43,7 @@
         </fieldset>
 
         <div class="button-group">
-            <button type="submit" class="toggle-btn submit-btn">Add Movie</button>
+            <button type="submit" class="toggle-btn submit-btn">Add/Update Movie</button>
         </div>
     </form>
 
@@ -58,22 +58,30 @@
         const movieForm = document.getElementById('movieForm');
         const movieListContainer = document.getElementById('movieListContainer');
         
+        // localStorage key for data persistence
         const STORAGE_KEY = 'movie_ratings_data';
 
-        
         function getMoviesFromStorage() {
             const storedData = localStorage.getItem(STORAGE_KEY);
             return storedData ? JSON.parse(storedData) : [];
         }
 
-    
-        function saveMovieToStorage(movieObj) {
-            const movies = getMoviesFromStorage();
-            movies.push(movieObj);
+        function saveMoviesToStorage(movies) {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(movies));
         }
 
-        
+        function findMovieByTitle(movies, title) {
+            return movies.findIndex(movie => 
+                movie.title.toLowerCase() === title.toLowerCase().trim()
+            );
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         function renderMovieList() {
             const movies = getMoviesFromStorage();
             movieListContainer.innerHTML = ''; 
@@ -83,35 +91,51 @@
                 return;
             }
 
-            movies.forEach(movie => {
+            movies.forEach((movie, index) => {
                 const movieItem = document.createElement('div');
                 movieItem.classList.add('movie-item');
 
                 let starsHTML = '';
-                for(let i = 0; i < movie.rating; i++) {
+                for(let i = 0; i < Math.round(movie.rating); i++) {
                     starsHTML += '★';
                 }
 
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.classList.add('delete-btn');
+                deleteBtn.setAttribute('aria-label', `Delete ${escapeHtml(movie.title)}`);
+                deleteBtn.addEventListener('click', () => handleDeleteMovie(index));
+
                 movieItem.innerHTML = `
                     <div class="movie-info">
-                        <h3>${movie.title}</h3>
-                        <span>${movie.genre}</span>
+                        <h3>${escapeHtml(movie.title)}</h3>
+                        <span class="movie-genre">${escapeHtml(movie.genre)}</span>
                     </div>
-                    <div class="display-stars" title="Rating: ${movie.rating}/5">
+                    <div class="display-stars" title="Rating: ${movie.rating.toFixed(1)}/5">
                         ${starsHTML}
                     </div>
                 `;
-
+                
+                movieItem.appendChild(deleteBtn);
                 movieListContainer.appendChild(movieItem);
             });
         }
 
-        movieForm.addEventListener('submit', function(event) {
-            event.preventDefault(); 
+        function handleDeleteMovie(index) {
+            if (confirm('Are you sure you want to delete this movie?')) {
+                const movies = getMoviesFromStorage();
+                movies.splice(index, 1); 
+                saveMoviesToStorage(movies); 
+                renderMovieList(); 
+            }
+        }
 
-            const title = document.getElementById('movieTitle').value;
+        
+        movieForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('movieTitle').value.trim();
             const genre = document.getElementById('movieGenre').value;
-            
             const ratingInput = document.querySelector('input[name="rating"]:checked');
             
             if (!ratingInput) {
@@ -119,17 +143,34 @@
                 return;
             }
 
-            const rating = parseInt(ratingInput.value);
+            const newRating = parseInt(ratingInput.value);
+            const movies = getMoviesFromStorage();
+            const existingIndex = findMovieByTitle(movies, title);
+            
+            if (existingIndex !== -1) {
+                const existingMovie = movies[existingIndex];
+                const averagedRating = (existingMovie.rating + newRating) / 2;
+                
+                movies[existingIndex] = {
+                    title: title,
+                    genre: genre,
+                    rating: averagedRating
+                };
+                
+                alert(`✓ "${title}" updated!\nNew averaged rating: ${averagedRating.toFixed(1)}/5`);
+            } else {
+                const newMovie = {
+                    title: title,
+                    genre: genre,
+                    rating: newRating
+                };
+                movies.push(newMovie);
+                alert(`✓ "${title}" added successfully!`);
+            }
 
-            const newMovie = {
-                title: title,
-                genre: genre,
-                rating: rating
-            };
-
-            saveMovieToStorage(newMovie);
+            saveMoviesToStorage(movies);
             renderMovieList();
-            movieForm.reset();
+            movieForm.reset(); 
         });
 
         renderMovieList();
