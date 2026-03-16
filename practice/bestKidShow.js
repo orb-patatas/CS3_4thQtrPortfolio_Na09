@@ -78,7 +78,7 @@ function getTheBest(obj) {
 function ans(input){
     obj = JSON.parse(input);
     
-    const bestShow = getTheBest(obj);
+    const bestShow = getTheBest(obj); // yeah no
     
     console.log(`Best kid show is ${bestShow.name} with a rating of ${bestShow.rating}`);
 } 
