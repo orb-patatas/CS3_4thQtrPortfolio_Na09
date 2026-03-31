@@ -1,0 +1,144 @@
+:root {
+    --bgDeep: #0f0c29;
+    --bgGradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    --sidebarColor: rgba(15, 12, 41, 0.7);
+    --accentPurple: #a445ed;
+    --accentBlue: #457dfb;
+    --textMain: #ffffff;
+    --textMuted: #a0a0c0;
+    --glass: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: var(--bgGradient);
+    background-attachment: fixed;
+    color: var(--textMain);
+    height: 100vh;
+}
+
+.appContainer {
+    display: flex;
+    height: 100%;
+}
+
+.sidebar {
+    width: 260px;
+    background: var(--sidebarColor);
+    backdrop-filter: blur(10px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebarHeader {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.logoText {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(to right, var(--accentBlue), var(--accentPurple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.navItem {
+    padding: 15px 25px;
+    list-style: none;
+    cursor: pointer;
+    color: var(--textMuted);
+    transition: 0.3s;
+    border-radius: 0 25px 25px 0;
+    margin-right: 20px;
+}
+
+.navItem:hover, .navItem.active {
+    background: rgba(164, 69, 237, 0.2);
+    color: var(--textMain);
+    padding-left: 35px;
+}
+
+.mainContent {
+    flex: 1;
+    padding: 50px;
+    overflow-y: auto;
+}
+
+.contentHeader h1 {
+    font-size: 3rem;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(164, 69, 237, 0.5);
+}
+
+.tableWrapper {
+    margin-top: 40px;
+    background: var(--glass);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.projectTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    color: var(--textMuted);
+    padding: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.projectRow {
+    transition: 0.3s;
+}
+
+.projectRow:hover {
+    background: rgba(255, 255, 255, 0.03);
+    transform: scale(1.01);
+}
+
+td {
+    padding: 20px 15px;
+}
+
+.mainTitle {
+    display: block;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.subTitle {
+    font-size: 0.85rem;
+    color: var(--textMuted);
+}
+
+.badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.badge.purple { background: rgba(164, 69, 237, 0.3); color: #d8b4fe; }
+.badge.blue { background: rgba(69, 125, 251, 0.3); color: #bfdbfe; }
+
+.launchBtn {
+    background: transparent;
+    border: 1px solid var(--accentBlue);
+    color: var(--accentBlue);
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.launchBtn:hover {
+    background: var(--accentBlue);
+    color: white;
+    box-shadow: 0 0 15px var(--accentBlue);
+}
