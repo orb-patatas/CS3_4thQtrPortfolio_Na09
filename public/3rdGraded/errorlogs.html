@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="author" content="Ruisse Oebree Candelaria">
+  <meta name="description" content="Nlogonia Debugging Exercise - Error Analysis and Corrections">
+  <meta name="keywords" content="debugging, CSS, JavaScript, DOM, Nlogonia, error logs">
+  <title>CS3 - Error Logs | Ruisse Oebree Candelaria</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poppins:wght@300&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+  <style>
+    tr:nth-child(1) ~ tr:nth-child(odd) {
+      background-color: lightgray;
+      color: black;
+    }
+    td, th {
+      padding: 10px;
+      vertical-align: top;
+    }
+    table {
+      width: 95%;
+      margin: 0 auto;
+    }
+    caption {
+      font-size: 2em;
+      font-weight: bold;
+      padding: 15px;
+      background-color: navy;
+      color: white;
+    }
+    code {
+      background-color: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+    }
+    .correction {
+      color: #198754;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <a href="index.html#start">Table</a>
+      <a href="index.html#input">Input</a>
+      <a href="index.html#output">Output</a>
+      <a href="errorlogs.html">Error Logs</a>
+    </nav>
+    
+    <h1 style="padding: 30px">Error Logs - Nlogonia Debugging Exercise</h1>
+    <h2 style="text-align: center; color: navy;">Ruisse Oebree Candelaria | 31 Mar 2026</h2>
+  </header>
+
+  <section id="table">
+    <table> 
+      <caption>10 Errors Identified and Corrected</caption>
+      <tr class="rColor">
+        <th>Item#</th> 
+        <th>Code Line#<br/>CSS or JS</th> 
+        <th>Description of Error</th>
+        <th>Correction Applied</th>
+      </tr>
+      <tr>
+        <td>1</td> 
+        <td>Line 1<br><strong>JavaScript</strong></td> 
+        <td><code>plotPoint()</code> function defined without parameters, but HTML calls it with 4 arguments: <code>x0, y0, x, y</code>.</td>
+        <td class="correction">Changed function signature to <code>function plotPoint(x0, y0, x, y)</code> to accept the passed coordinate values.</td>
+      </tr>
+      <tr>
+        <td>2</td> 
+        <td>Lines 2-3<br><strong>JavaScript</strong></td> 
+        <td>Variables <code>in1</code> and <code>out1</code> referenced directly without DOM selection, causing <code>ReferenceError</code>.</td>
+        <td class="correction">Added <code>document.getElementById('in1')</code> and <code>document.getElementById('out1')</code> to properly access DOM elements.</td>
+      </tr>
+      <tr>
+        <td>3</td> 
+        <td>Line 7<br><strong>JavaScript</strong></td> 
+        <td><code>point.styleleft</code> is invalid — missing dot operator between <code>style</code> and property name.</td>
+        <td class="correction">Changed to <code>point.style.left</code> to properly set CSS left property via JavaScript.</td>
+      </tr>
+      <tr>
+        <td>4</td> 
+        <td>Line 8<br><strong>JavaScript</strong></td> 
+        <td><code>point.stylebottom</code> is invalid — missing dot operator between <code>style</code> and property name.</td>
+        <td class="correction">Changed to <code>point.style.bottom</code> to properly set CSS bottom property via JavaScript.</td>
+      </tr>
+      <tr>
+        <td>5</td> 
+        <td>Lines 12-14<br><strong>CSS</strong></td> 
+        <td><code>body</code> has three separate <code>font-family</code> declarations; only the last ('Roboto') applies, ignoring others.</td>
+        <td class="correction">Combined into single declaration: <code>font-family: 'Open Sans', 'Poppins', 'Roboto', sans-serif;</code> for proper fallback chain.</td>
+      </tr>
+      <tr>
+        <td>6</td> 
+        <td>Line 35<br><strong>CSS</strong></td> 
+        <td><code>nav</code> selector lacks positioning properties, so navigation scrolls with page instead of staying fixed at top.</td>
+        <td class="correction">Added <code>position: fixed; top: 0; z-index: 1000;</code> to keep nav visible during scrolling.</td>
+      </tr>
+      <tr>
+        <td>7</td> 
+        <td>Line 39<br><strong>CSS</strong></td> 
+        <td><code>nav a</code> uses <code>display: block</code>, causing navigation links to stack vertically instead of appearing horizontally.</td>
+        <td class="correction">Changed to <code>display: inline-block;</code> to allow horizontal alignment while preserving padding and hover effects.</td>
+      </tr>
+      <tr>
+        <td>8</td> 
+        <td>Line 42<br><strong>CSS</strong></td> 
+        <td>Selector <code>nav a :hover</code> has erroneous space, targeting pseudo-elements inside <code>&lt;a&gt;</code> instead of the link itself.</td>
+        <td class="correction">Removed space: changed to <code>nav a:hover</code> to apply hover effect directly to anchor elements.</td>
+      </tr>
+      <tr>
+        <td>9</td> 
+        <td>Line 59<br><strong>CSS</strong></td> 
+        <td><code>.point</code> class missing <code>position: absolute</code>, so <code>left</code>/<code>bottom</code> JS assignments have no visual effect.</td>
+        <td class="correction">Added <code>position: absolute;</code> to enable precise coordinate-based placement within <code>#coordinatePlane</code>.</td>
+      </tr>
+      <tr>
+        <td>10</td> 
+        <td>Line 68<br><strong>HTML</strong></td> 
+        <td>Duplicate <code>id="output"</code>: used on both <code>&lt;section&gt;</code> and <code>&lt;h2&gt;</code>. HTML IDs must be unique — <code>getElementById('output')</code> will only return the first match.</td>
+        <td class="correction">Removed <code>id="output"</code> from <code>&lt;h2&gt;</code>, keeping it only on the <code>&lt;section&gt;</code> element for proper DOM selection.</td>
+      </tr>
+    </table>
+    <hr>
+  </section>
+  
+  <footer>
+    <a href="https://facebook.com" aria-label="Facebook"> 
+      <div class="icon facebook"></div>
+    </a>
+    <a href="https://twitter.com" aria-label="Twitter">
+      <div class="icon twitter"></div>
+    </a>
+    <a href="https://github.com" aria-label="GitHub">
+      <div class="icon github"></div>
+    </a>
+  </footer>
+ 
+</body>
+</html>

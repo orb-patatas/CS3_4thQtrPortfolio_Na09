@@ -1,0 +1,241 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  /* Error 8, multiple family declarations */
+  font-family: 'Open Sans', 'Poppins', 'Roboto', sans-serif;
+  background-color: cornsilk;
+  color: royalblue;
+  padding: 0;
+  margin: 0;
+}
+
+section, header {
+  padding-left: 2%;
+}
+
+/*---- Navigation Bar Styles ----
+Requirements:
+- Navigation should be on one line at the top of the browser
+- Should not scroll with the rest of the content
+- Hover effect on each link to change background and foreground color
+*/
+
+/* Error 4, position: fixed */
+nav {
+  width: 100%;
+  background-color: #333;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Error 7, display: inline-block */
+nav a {
+  display: inline-block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+/* Error 5, removed space between 'a' and ':hover' */
+nav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/*---- coordinate plane ----*/
+#coordinatePlane {
+  position: relative;
+  height: 400px;
+  width: 400px;
+  border: 1px solid black;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+}
+
+/* Error 6 Fixed, position: absolute  */
+.point {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  background-color: red;
+  border-radius: 50%;
+}
+
+.axis {
+  position: absolute;
+  background-color: black;
+}
+
+#xAxis {
+  left: 0;
+  top: 200px;
+  width: 100%;
+  height: 1px;
+}
+
+#yAxis {
+  left: 200px;
+  bottom: 0;
+  width: 1px;
+  height: 100%;
+}
+
+/*---- Image Sprites ----*/
+footer {
+  width: 100%;
+  background-color: white;
+  color: #333;
+  text-align: center;
+  padding: 20px 0;
+  position: relative;
+  bottom: 0;
+}
+
+footer a {
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  background: url('images/sprites.png') no-repeat;
+}
+
+.facebook {
+  background-position: -226px -129px;
+}
+
+.twitter {
+  background-position: -340px -129px;
+}
+
+.github {
+  background-position: -456px -129px;
+}
+
+.facebook:hover {
+  background-position: -226px -55px;
+}
+
+.twitter:hover {
+  background-position: -340px -54px;
+}
+
+.github:hover {
+  background-position: -456px -54px;
+}
+
+/*---- lamesa ----*/
+table {
+  border-collapse: collapse;
+  width: 90%;
+  margin: 20px auto;
+}
+
+th, td, tr {
+  padding: 10px;
+  border: 1px solid #333;
+  text-align: center;
+}
+
+.rColor {
+  background-color: navy;
+  color: white;
+}
+
+caption {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px;
+  caption-side: top;
+}
+
+/*---- input bang ----*/
+#input {
+  margin: 30px 0;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#input h2 {
+  margin-bottom: 20px;
+}
+
+#input h4 {
+  margin: 15px 0 10px 0;
+  color: #333;
+}
+
+#input input[type="number"] {
+  padding: 8px;
+  margin: 5px;
+  width: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#input button {
+  margin-top: 15px;
+  padding: 10px 25px;
+  background-color: royalblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#input button:hover {
+  background-color: navy;
+}
+
+/*---- output ----*/
+#output {
+  margin: 30px 0;
+  padding: 20px;
+}
+
+#output h2 {
+  margin-bottom: 20px;
+}
+
+/*---- header----*/
+header h1 {
+  margin-top: 60px; 
+  text-align: center;
+}
+
+header h2 {
+  text-align: center;
+  color: navy;
+}
+
+/*---- design when smth ----*/
+@media screen and (max-width: 600px) {
+  nav a {
+    display: block;
+    padding: 10px;
+  }
+  
+  #coordinatePlane {
+    width: 300px;
+    height: 300px;
+  }
+  
+  #xAxis {
+    top: 150px;
+  }
+  
+  #yAxis {
+    left: 150px;
+  }
+}
